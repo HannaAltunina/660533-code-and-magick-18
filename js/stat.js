@@ -30,16 +30,8 @@ var getMaxElement = function (arr) {
   return maxElement;
 };
 
-var getColumnColor = function (players) {
-  var columnColor = 'hsl(245, ' + Math.random() * 100 + '%, 50%)';
-
-  for (var i = 0; i < players.length; i++) {
-    if (players[i] === USER_NAME) {
-      columnColor = 'rgba(255, 0, 0, 1)';
-    }
-  }
-  return columnColor;
-
+var getColumnColor = function (playerName) {
+  return playerName === USER_NAME ? 'rgba(255, 0, 0, 1)' : 'hsl(245, ' + Math.random() * 100 + '%, 50%)';
 };
 
 window.renderStatistics = function (ctx, players, times) {
