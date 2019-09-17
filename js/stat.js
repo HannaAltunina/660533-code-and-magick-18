@@ -12,7 +12,7 @@ var GAP = 10;
 var COLUMN_WIDTH = 40;
 var COLUMN_GAP = 50;
 var columnHeight = CLOUD_HEIGHT - CLOUD_TITLE_Y + GAP - 3 * FONT_SIZE - 5 * FONT_GAP;
-var userName = 'Вы';
+var USER_NAME = 'Вы';
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -31,16 +31,15 @@ var getMaxElement = function (arr) {
 };
 
 var getColumnColor = function (players) {
-  var columnColor = 'rgba(255, 0, 0, 1)';
+  var columnColor = 'hsl(245, ' + Math.random() * 100 + '%, 50%)';
 
   for (var i = 0; i < players.length; i++) {
-    if (players[i] === userName) {
+    if (players[i] === USER_NAME) {
       columnColor = 'rgba(255, 0, 0, 1)';
-    } else {
-      columnColor = 'hsl(245, ' + Math.random() * 100 + '%, 50%)';
     }
   }
   return columnColor;
+
 };
 
 window.renderStatistics = function (ctx, players, times) {
@@ -55,7 +54,7 @@ window.renderStatistics = function (ctx, players, times) {
   var maxTime = getMaxElement(times);
 
   for (var j = 0; j < players.length; j++) {
-    ctx.fillStyle = getColumnColor(players);
+    ctx.fillStyle = getColumnColor(players[j]);
     ctx.fillRect(CLOUD_X + COLUMN_GAP + (COLUMN_WIDTH + COLUMN_GAP) * j, CLOUD_HEIGHT - FONT_SIZE - FONT_GAP, COLUMN_WIDTH, -columnHeight * times[j] / maxTime);
 
     ctx.fillStyle = '#111';
