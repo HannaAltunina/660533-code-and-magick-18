@@ -15,7 +15,7 @@ var getRandomElement = function (arr) {
 var getRandomArray = function (length, index) {
   var arr = [];
   for (var i = 0; i < length; i++) {
-    arr[i] = getRandomElement(index);
+    arr[i] = index;
   }
   return arr;
 };
