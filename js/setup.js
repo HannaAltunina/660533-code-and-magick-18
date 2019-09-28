@@ -4,6 +4,7 @@ var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'К
 var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var WIZARD_COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var WIZARD_EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
+var WIZARD_FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 var WIZARDS_NUMBER = 4;
 var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
@@ -13,10 +14,14 @@ var setup = document.querySelector('.setup');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = setup.querySelector('.setup-close');
 var setupUserName = setup.querySelector('.setup-user-name');
+var setupWizard = document.querySelector('.setup-wizard');
+var setupWizardCoat = setupWizard.querySelector('.wizard-coat');
+var setupWizardEyes = setupWizard.querySelector('.wizard-eyes');
+var setupWizardFireball = document.querySelector('.setup-fireball-wrap');
+
 var getRandomElement = function (arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 };
-
 
 var generateWizard = function (wizard) {
   wizard = {
@@ -106,4 +111,14 @@ setupClose.addEventListener('keydown', function (evt) {
   }
 });
 
+setupWizardCoat.addEventListener('click', function () {
+  setupWizardCoat.style.fill = getRandomElement(WIZARD_COAT_COLORS);
+});
 
+setupWizardEyes.addEventListener('click', function () {
+  setupWizardEyes.style.fill = getRandomElement(WIZARD_EYES_COLORS);
+});
+
+setupWizardFireball.addEventListener('click', function () {
+  setupWizardFireball.style.background = getRandomElement(WIZARD_FIREBALL_COLORS);
+});
