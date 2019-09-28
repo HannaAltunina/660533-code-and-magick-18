@@ -10,6 +10,7 @@ var similarList = document.querySelector('.setup-similar-list');
 var setup = document.querySelector('.setup');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = setup.querySelector('.setup-close');
+var setupOpenIcon = document.querySelector('.setup-open-icon');
 
 
 var getRandomElement = function (arr) {
@@ -72,3 +73,4 @@ document.addEventListener('keydown', function (evt) {
 setupClose.addEventListener('click', function () {
   setup.classList.add('hidden');
 });
+
