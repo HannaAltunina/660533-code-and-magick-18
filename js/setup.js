@@ -7,9 +7,10 @@ var WIZARD_EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var WIZARDS_NUMBER = 4;
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 var similarList = document.querySelector('.setup-similar-list');
-var setupOpen = document.querySelector('.setup-open');
-
 var setup = document.querySelector('.setup');
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = setup.querySelector('.setup-close');
+
 
 var getRandomElement = function (arr) {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -60,4 +61,8 @@ setup.querySelector('.setup-similar').classList.remove('hidden');
 
 setupOpen.addEventListener('click', function () {
   setup.classList.remove('hidden');
+});
+
+setupClose.addEventListener('click', function () {
+  setup.classList.add('hidden');
 });
