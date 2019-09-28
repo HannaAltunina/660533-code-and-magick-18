@@ -5,12 +5,14 @@ var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', '�
 var WIZARD_COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var WIZARD_EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var WIZARDS_NUMBER = 4;
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 var similarList = document.querySelector('.setup-similar-list');
 var setup = document.querySelector('.setup');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = setup.querySelector('.setup-close');
-
+var setupUserName = setup.querySelector('.setup-user-name');
 var getRandomElement = function (arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 };
@@ -58,29 +60,50 @@ similarList.appendChild(renderWizards());
 
 setup.querySelector('.setup-similar').classList.remove('hidden');
 
-setupOpen.addEventListener('click', function () {
-  setup.classList.remove('hidden');
-});
-
-document.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 27) {
-    setup.classList.add('hidden');
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
   }
+};
+
+var openPopup = function () {
+  setup.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closePopup = function () {
+  setup.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+setupOpen.addEventListener('click', function () {
+  openPopup();
 });
 
 setupOpen.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 13) {
-    setup.classList.remove('hidden');
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openPopup();
   }
 });
 
 setupClose.addEventListener('click', function () {
-  setup.classList.add('hidden');
+  closePopup();
 });
 
 setupClose.addEventListener('click', function (evt) {
-  if (evt.keyCode === 13) {
-    setup.classList.add('hidden');
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
   }
 });
+
+setupUserName.addEventListener('keydown', function () {
+  document.removeEventListener('keydown', onPopupEscPress);
+});
+
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
+});
+
 
