@@ -78,3 +78,9 @@ setupClose.addEventListener('click', function () {
   setup.classList.add('hidden');
 });
 
+setupClose.addEventListener('click', function (evt) {
+  if (evt.keyCode === 13) {
+    setup.classList.add('hidden');
+  }
+});
+
