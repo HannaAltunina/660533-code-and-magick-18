@@ -10,8 +10,6 @@ var similarList = document.querySelector('.setup-similar-list');
 var setup = document.querySelector('.setup');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = setup.querySelector('.setup-close');
-var setupOpenIcon = document.querySelector('.setup-open-icon');
-
 
 var getRandomElement = function (arr) {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -67,6 +65,12 @@ setupOpen.addEventListener('click', function () {
 document.addEventListener('keydown', function (evt) {
   if (evt.keyCode === 27) {
     setup.classList.add('hidden');
+  }
+});
+
+setupOpen.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 13) {
+    setup.classList.remove('hidden');
   }
 });
 
