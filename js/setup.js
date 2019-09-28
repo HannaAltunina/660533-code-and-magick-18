@@ -63,6 +63,12 @@ setupOpen.addEventListener('click', function () {
   setup.classList.remove('hidden');
 });
 
+document.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 27) {
+    setup.classList.add('hidden');
+  }
+});
+
 setupClose.addEventListener('click', function () {
   setup.classList.add('hidden');
 });
