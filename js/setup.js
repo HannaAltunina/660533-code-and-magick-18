@@ -70,7 +70,8 @@ similarList.appendChild(renderWizards());
 setup.querySelector('.setup-similar').classList.remove('hidden');
 
 var onPopupEscPress = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+  var selectedArea = document.activeElement;
+  if ((evt.keyCode === ESC_KEYCODE) && (selectedArea !== setupUserName)) {
     closePopup();
   }
 };
@@ -105,10 +106,6 @@ setupClose.addEventListener('click', function (evt) {
   }
 });
 
-setupUserName.addEventListener('keydown', function () {
-  document.removeEventListener('keydown', onPopupEscPress);
-});
-
 setupClose.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     closePopup();
@@ -116,7 +113,9 @@ setupClose.addEventListener('keydown', function (evt) {
 });
 
 setupWizardCoat.addEventListener('click', function () {
-  setupWizardCoat.style.fill = getRandomElement(WIZARD_COAT_COLORS);
+  var userCoatColor = getRandomElement(WIZARD_COAT_COLORS);
+  setupWizardCoat.style.fill = userCoatColor;
+  coatColorInput.value = userCoatColor;
 });
 
 setupWizardEyes.addEventListener('click', function () {
@@ -126,5 +125,3 @@ setupWizardEyes.addEventListener('click', function () {
 setupWizardFireball.addEventListener('click', function () {
   setupWizardFireball.style.background = getRandomElement(WIZARD_FIREBALL_COLORS);
 });
-
-coatColorInput.value = getRandomElement(WIZARD_COAT_COLORS);
