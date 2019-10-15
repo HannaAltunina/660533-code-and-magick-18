@@ -1,14 +1,19 @@
 'use strict';
 
 (function () {
+  var SUCCESS_KEYCODE = 200;
+  var URL_GET = 'https://js.dump.academy/code-and-magick/data';
+  var URL_POST = 'https://js.dump.academy/code-and-magick';
+  var TIMEOUT = 1000;
+
+
   function load(onLoad, onError) {
-    var URL = 'https://js.dump.academy/code-and-magick/data';
 
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', URL);
+    xhr.open('GET', URL_GET);
     xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === SUCCESS_KEYCODE) {
         onLoad(xhr.response);
       } else {
         onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
@@ -24,18 +29,17 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = 10000;
+    xhr.timeout = TIMEOUT;
 
     xhr.send();
   }
 
   function save(data, onLoad, onError) {
-    var URL = 'https://js.dump.academy/code-and-magick';
 
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === SUCCESS_KEYCODE) {
         onLoad(xhr.response);
       } else {
         onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
@@ -44,10 +48,9 @@
 
     xhr.addEventListener('error', function () {
       onError('Произошла ошибка соединения');
-      document.body.insertAdjacentHTML('afterbegin', '<h1>Произошла ошибка соединения</h1>');
     });
 
-    xhr.open('POST', URL);
+    xhr.open('POST', URL_POST);
     xhr.send(data);
   }
 

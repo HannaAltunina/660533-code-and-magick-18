@@ -13,15 +13,8 @@
   var eyesColorInput = document.querySelector('input[name="eyes-color"]');
   var fireballColorInput = document.querySelector('input[name="fireball-color"]');
   var form = document.querySelector('.setup-wizard-form');
+  var setupFooter = document.querySelector('.setup-footer');
 
-
-  // var getWizards = function (length) {
-  //   var wizards = [];
-  //   for (var i = 0; i < length; i++) {
-  //     wizards[i] = window.util.generateWizard();
-  //   }
-  //   return wizards;
-  // };
 
   var renderWizard = function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
@@ -39,7 +32,10 @@
       fragment.appendChild(renderWizard(wizards[j]));
     }
     similarList.appendChild(fragment);
-  });
+  }, function () {
+    setupFooter.insertAdjacentHTML('afterbegin', '<h1>Произошла ошибка соединения</h1>');
+  }
+  );
 
   var changingWizardColor = function (element, arr, input) {
     var color = window.util.getRandomElement(arr);
