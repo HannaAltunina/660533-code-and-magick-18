@@ -86,7 +86,7 @@
       document.removeEventListener('mouseup', onMouseUp);
 
       if (dragged) {
-        var onClickPreventDefault = function (evt) {
+        var onClickPreventDefault = function () {
           evt.preventDefault();
           dialogHandler.removeEventListener('click', onClickPreventDefault);
         };
@@ -97,4 +97,8 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
+
+  window.dialog = {
+    setup: setup
+  };
 })();

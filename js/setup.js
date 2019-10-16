@@ -12,37 +12,30 @@
   var coatColorInput = document.querySelector('input[name="coat-color"]');
   var eyesColorInput = document.querySelector('input[name="eyes-color"]');
   var fireballColorInput = document.querySelector('input[name="fireball-color"]');
+  var form = document.querySelector('.setup-wizard-form');
+  var setupFooter = document.querySelector('.setup-footer');
 
-  var getWizards = function (length) {
-    var wizards = [];
-    for (var i = 0; i < length; i++) {
-      wizards[i] = window.util.generateWizard();
-    }
-    return wizards;
-  };
 
   var renderWizard = function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
 
     wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-    wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
+    wizardElement.querySelector('.wizard-coat').style.fill = wizard.colorCoat;
+    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.colorEyes;
 
     return wizardElement;
   };
 
-  var renderWizards = function () {
-    var wizards = getWizards(WIZARDS_NUMBER);
+  window.backend.load(function (wizards) {
     var fragment = document.createDocumentFragment();
-    for (var j = 0; j < wizards.length; j++) {
+    for (var j = 0; j < WIZARDS_NUMBER; j++) {
       fragment.appendChild(renderWizard(wizards[j]));
     }
-    return fragment;
-  };
-
-  renderWizards();
-
-  similarList.appendChild(renderWizards());
+    similarList.appendChild(fragment);
+  }, function () {
+    setupFooter.insertAdjacentHTML('afterbegin', '<h1>Произошла ошибка соединения</h1>');
+  }
+  );
 
   var changingWizardColor = function (element, arr, input) {
     var color = window.util.getRandomElement(arr);
@@ -61,5 +54,12 @@
 
   setupWizardFireball.addEventListener('click', function () {
     changingWizardColor(setupWizardFireball, WIZARD_FIREBALL_COLORS, fireballColorInput);
+  });
+
+  form.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(form), function () {
+      window.dialog.setup.classList.add('hidden');
+    });
+    evt.preventDefault();
   });
 })();
