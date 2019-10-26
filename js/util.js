@@ -17,6 +17,13 @@
 
 
   window.util = {
+    ESC_KEYCODE: ESC_KEYCODE,
+    ENTER_KEYCODE: ENTER_KEYCODE,
+    WIZARD_NAMES: WIZARD_NAMES,
+    WIZARD_SURNAMES: WIZARD_SURNAMES,
+    WIZARD_COAT_COLORS: WIZARD_COAT_COLORS,
+    WIZARD_EYES_COLORS: WIZARD_EYES_COLORS,
+
     getRandomElement: function (arr) {
       return arr[Math.floor(Math.random() * arr.length)];
     },

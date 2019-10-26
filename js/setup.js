@@ -2,9 +2,6 @@
 
 (function () {
   var WIZARD_FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
-  var WIZARDS_NUMBER = 4;
-  var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-  var similarList = document.querySelector('.setup-similar-list');
   var setupWizard = document.querySelector('.setup-wizard');
   var setupWizardCoat = setupWizard.querySelector('.wizard-coat');
   var setupWizardEyes = setupWizard.querySelector('.wizard-eyes');
@@ -13,29 +10,11 @@
   var eyesColorInput = document.querySelector('input[name="eyes-color"]');
   var fireballColorInput = document.querySelector('input[name="fireball-color"]');
   var form = document.querySelector('.setup-wizard-form');
-  var setupFooter = document.querySelector('.setup-footer');
 
-
-  var renderWizard = function (wizard) {
-    var wizardElement = similarWizardTemplate.cloneNode(true);
-
-    wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-    wizardElement.querySelector('.wizard-coat').style.fill = wizard.colorCoat;
-    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.colorEyes;
-
-    return wizardElement;
+  var wizard = {
+    onEyesChange: function () {},
+    onCoatChange: function () {}
   };
-
-  window.backend.load(function (wizards) {
-    var fragment = document.createDocumentFragment();
-    for (var j = 0; j < WIZARDS_NUMBER; j++) {
-      fragment.appendChild(renderWizard(wizards[j]));
-    }
-    similarList.appendChild(fragment);
-  }, function () {
-    setupFooter.insertAdjacentHTML('afterbegin', '<h1>Произошла ошибка соединения</h1>');
-  }
-  );
 
   var changingWizardColor = function (element, arr, input) {
     var color = window.util.getRandomElement(arr);
@@ -46,10 +25,14 @@
 
   setupWizardCoat.addEventListener('click', function () {
     changingWizardColor(setupWizardCoat, window.WIZARD_COAT_COLORS, coatColorInput);
+    var newColor = coatColorInput.value;
+    wizard.onCoatChange(newColor);
   });
 
   setupWizardEyes.addEventListener('click', function () {
     changingWizardColor(setupWizardEyes, window.WIZARD_EYES_COLORS, eyesColorInput);
+    var newColor = eyesColorInput.value;
+    wizard.onEyesChange(newColor);
   });
 
   setupWizardFireball.addEventListener('click', function () {
@@ -62,4 +45,8 @@
     });
     evt.preventDefault();
   });
+
+  window.setup = {
+    wizard: wizard
+  };
 })();
