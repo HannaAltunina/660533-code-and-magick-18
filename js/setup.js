@@ -10,10 +10,18 @@
   var eyesColorInput = document.querySelector('input[name="eyes-color"]');
   var fireballColorInput = document.querySelector('input[name="fireball-color"]');
   var form = document.querySelector('.setup-wizard-form');
+  var coatColor;
+  var eyesColor;
 
   var wizard = {
-    onEyesChange: function () {},
-    onCoatChange: function () {}
+    onEyesChange: function (color) {
+      eyesColor = color;
+      window.similar.updateWizards();
+    },
+    onCoatChange: function (color) {
+      coatColor = color;
+      window.similar.updateWizards();
+    }
   };
 
   var changingWizardColor = function (element, arr, input) {
@@ -47,6 +55,8 @@
   });
 
   window.setup = {
-    wizard: wizard
+    wizard: wizard,
+    coatColor: coatColor,
+    eyesColor: eyesColor
   };
 })();
